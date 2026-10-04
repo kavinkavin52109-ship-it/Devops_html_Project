@@ -24,6 +24,24 @@ pipeline {
                 sh 'test -f index.html'
             }
         }
+        stage('Docker Build') {
+            steps {
+                echo 'Building Docker image...'
+                sh 'docker build -t devops-html-project:latest .'
+            }
+        }
 
+        stage('Docker Run') {
+            steps {
+                echo 'Starting Docker container...'
+                sh '''
+                    docker rm -f devops-html-container || true
+                    docker run -d \
+                        --name devops-html-container \
+                        -p 8081:80 \
+                        devops-html-project:latest
+                '''
+            }
+        }
     }
 }
