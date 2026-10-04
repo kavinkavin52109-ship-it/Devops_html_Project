@@ -6,7 +6,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git branch: 'main',
+                git branch: 'master',
                     url: 'https://github.com/kavinkavin52109-ship-it/Devops_html_Project.git'
             }
         }
